@@ -27,7 +27,7 @@ Most of what's here started late at night as a question. Some of it got finished
 </details>
 
 <sub>toolbox</sub><br>
-<kbd>Debian</kbd> <kbd>Bash</kbd> <kbd>tmux</kbd> <kbd>Git</kbd> <kbd>Docker</kbd> <kbd>Portainer</kbd> <kbd>Qdrant</kbd> <kbd>n8n</kbd> <kbd>Ollama</kbd> <kbd>WireGuard</kbd> <kbd>SSH</kbd> <kbd>rsync</kbd> <kbd>Python</kbd> <kbd>uv</kbd> <kbd>Node.js</kbd> <kbd>TypeScript</kbd> <kbd>Playwright</kbd> <kbd>Claude Code</kbd> <kbd>OpenCode</kbd> <kbd>MCP</kbd> <kbd>Agent Skills</kbd>
+<kbd>Debian</kbd> <kbd>Bash</kbd> <kbd>tmux</kbd> <kbd>Git</kbd> <kbd>Docker</kbd> <kbd>Portainer</kbd> <kbd>Qdrant</kbd> <kbd>n8n</kbd> <kbd>Ollama</kbd> <kbd>llama.cpp</kbd> <kbd>vLLM</kbd> <kbd>LM Studio</kbd> <kbd>WireGuard</kbd> <kbd>SSH</kbd> <kbd>rsync</kbd> <kbd>Python</kbd> <kbd>uv</kbd> <kbd>Node.js</kbd> <kbd>TypeScript</kbd> <kbd>Playwright</kbd> <kbd>Claude Code</kbd> <kbd>OpenCode</kbd> <kbd>MCP</kbd> <kbd>Agent Skills</kbd>
 
 <details>
 <summary>🏙️ <b>a building from the night city</b> <sub>drag to rotate</sub></summary>
