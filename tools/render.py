@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the self-updating profile images: a typing terminal and a contribution skyline.
+"""Render the self-updating profile images: a typing terminal (one Blade Runner scene per weekday) and a contribution skyline.
 
 Reads only public data of the GitHub user from the GitHub API (needs GITHUB_TOKEN; the Actions token is enough).
 Writes terminal-{dark,light}.svg and skyline-{dark,light}.svg into the output folder. Standard library only.
@@ -47,34 +47,98 @@ def fetch(login, token):
     data = api("/graphql", token, {"query": q, "variables": {"l": login}})
     weeks = [sum(d["contributionCount"] for d in w["contributionDays"])
              for w in data["data"]["user"]["contributionsCollection"]["contributionCalendar"]["weeks"]]
-    events = api(f"/users/{login}/events/public?per_page=1", token)
-    last = None
-    if events:
-        t = dt.datetime.fromisoformat(events[0]["created_at"].replace("Z", "+00:00")).astimezone(LOCAL)
-        last = f"{t:%Y-%m-%d} · {'night' if t.hour >= 20 or t.hour < 6 else 'day'}"
-    return weeks, last
+    return weeks
 
 
-def terminal(theme, last):
-    c = THEMES[theme]
-    lines = [
-        ("cmd", "systemctl status neogeoone"),
-        ("ok", "● neogeoone.service - night shift"),
-        ("out", "     Loaded: loaded (/etc/systemd/system/neogeoone.service; enabled)"),
-        ("out", "     Active: active (running) since a long time ago"),
-        ("cmd", "journalctl -u neogeoone --since dusk"),
-        ("log", "23:58  flarum     snapshot first, then the change"),
-        ("log", "03:20  skills     live data instead of memory"),
-        ("log", "04:17  chess      stockfish, offline, no tracking"),
-        ("log", "04:19  cost       own hardware vs. cloud, sourced"),
-        ("log", "04:30  status     within baseline"),
-        ("cmd", "last -n 1 neogeoone"),
-        ("out", f"neogeoone  pts/0   {last or 'quiet so far'}"),
+INCEPT = dt.date(2016, 1, 8)  # Roy Batty, N6MAA10816 (Blade Runner, 1982)
+
+
+def runtime(today):
+    months = (today.year - INCEPT.year) * 12 + today.month - INCEPT.month - (today.day < INCEPT.day)
+    return months // 12, months % 12
+
+
+def scenes(today):
+    """One Blade Runner scene per weekday, Monday first. Numbers and dates come from the films."""
+    y, m = runtime(today)
+    return [
+        ("dispatch order", [
+            ("cmd", "lapd-dispatch --unit blade-runner --date 2019-11"),
+            ("txt", "  ORDER  retire four units. lead: N6MAA10816. last known: downtown, rooftop level."),
+            ("txt", "  ├ srv-legacy-01   refuses to be patched. refuses to be rebooted."),
+            ("txt", "  ├ srv-legacy-02   insists it is production. it is not."),
+            ("txt", "  ├ nas-closet      hiding behind the router since the last move"),
+            ("txt", "  └ printer-3f      origin unknown. nobody admits to installing it."),
+            ("hi", "  report: two retired. one expired on schedule. the printer escaped. it always does."),
+        ]),
+        ("Tyrell database record", [
+            ("cmd", "tyrell-db lookup neogeoone"),
+            ("txt", "  model        sysadmin, Nexus-compatible, early series"),
+            ("txt", "  incept date  unknown. record lost in the 2022 blackout."),
+            ("txt", "  function     night maintenance, city-wide"),
+            ("txt", "  memories     partly implanted (man pages), partly earned (outages)"),
+            ("txt", "  lifespan     4 years by design. exceeded. nobody filed a ticket."),
+            ("hi", "  status       on shift. not on file, so technically not retirable."),
+        ]),
+        ("Wallace legacy check", [
+            ("cmd", "wallace-corp --legacy-check neogeoone"),
+            ("txt", "  spec            Nexus-6, four-year lifespan"),
+            ("txt", f"  incept          {INCEPT:%Y-%m-%d}"),
+            ("txt", f"  runtime         {y} years, {m} months"),
+            ("txt", f"  over spec       +{y - 4} years"),
+            ("txt", "  tyrell support  ended. vendor bankrupt, assets acquired by wallace-corp."),
+            ("hi", "  conclusion      outlived the manufacturer. still running."),
+        ]),
+        ("baseline test", [
+            ("cmd", "lapd-baseline --subject neogeoone"),
+            ("txt", "  > say it back: rack.                      rack."),
+            ("txt", "  > rack, patched.                          rack, patched."),
+            ("txt", "  > patched, and interlinked.               patched, and interlinked."),
+            ("txt", "  > who documented it?                      ..."),
+            ("txt", "  > who documented it?                      nobody. it just works."),
+            ("hi", "  result: off baseline. shift extended."),
+        ]),
+        ("off-world advertisement", [
+            ("cmd", "off-world-ad --play"),
+            ("hi", "  ░▒▓  THE OFF-WORLD COLONIES ARE HIRING  ▓▒░"),
+            ("txt", "       fresh air · real sunlight · no pager duty"),
+            ("txt", "       relocation paid. your past can stay behind."),
+            ("cmd", 'off-world-ad --reply "declined"'),
+            ("txt", "  reason: someone has to keep the lights on down here."),
+            ("cmd", "off-world-ad --unsubscribe"),
+            ("err", "  error: blimp does not support unsubscribe."),
+        ]),
+        ("Voight-Kampff test", [
+            ("cmd", "voight-kampff --subject neogeoone"),
+            ("out", "  calibrating ...................... ok   (pupil, blush, capillaries)"),
+            *[("txt", f"  {k}  {a.ljust(46)} {b}") for k, a, b in (
+                ("Q1", "a tortoise. a desert. you know the one.", "pupil: steady"),
+                ("Q2", "a server you built is being retired.", "pupil: dilated"),
+                ("Q3", 'a stranger deletes /var/log "to save space".', "blush: severe"),
+                ("Q4", "a progress bar stops at 99%.", "hand: on power button"))],
+            ("hi", "  result: inconclusive. probably human. definitely tired."),
+        ]),
+        ("origami on the desk", [
+            ("cmd", "ls -la /desk"),
+            ("txt", "  drwxr-xr-x  neogeoone  photos/              ← probably mine"),
+            ("txt", "  -rw-------  neogeoone  coffee.cold"),
+            ("hi", "  -r--r--r--  gaff       unicorn.origami      ← not mine"),
+            ("cmd", "stat unicorn.origami"),
+            ("txt", "  material  tinfoil"),
+            ("txt", "  meaning   someone knows what I dreamed about"),
+            ("cmd", "chown neogeoone unicorn.origami"),
+            ("err", "  chown: operation not permitted"),
+        ]),
     ]
+
+
+def terminal(theme, today):
+    c = THEMES[theme]
+    title, lines = scenes(today)[today.weekday()]
     W, LH, X, Y0, FS, CW = 1200, 24, 28, 74, 15, 9.0
     H = Y0 + LH * (len(lines) + 1) + 10
     o = [f'<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" '
-         f'aria-label="Terminal: systemctl status neogeoone, active (running); night log; last activity {escape(last or "quiet so far")}">',
+         f'aria-label="Terminal, Blade Runner scene of the day: {escape(title)}">',
          "<style>text{white-space:pre}.ln{opacity:0;animation:show .25s linear forwards}@keyframes show{from{opacity:0}to{opacity:1}}"
          ".ty{transform-box:fill-box;transform-origin:left;transform:scaleX(0);animation:type var(--d) steps(var(--n)) forwards}"
          "@keyframes type{to{transform:scaleX(1)}}.cur{animation:blink 1.1s steps(1) infinite}@keyframes blink{50%{opacity:0}}"
@@ -95,16 +159,8 @@ def terminal(theme, last):
                      f'font-family="{FONT}" font-size="{FS}" fill="{c["text"]}">{escape(txt)}</text></g></g>')
             t += dur + 0.35
         else:
-            fill = {"ok": c["ok"], "log": c["text"], "out": c["dim"]}[kind]
+            fill = {"txt": c["text"], "out": c["dim"], "hi": c["amber"], "err": "#f85149" if theme == "dark" else "#cf222e"}[kind]
             body = escape(txt)
-            if kind == "ok":
-                body = f'<tspan fill="{c["ok"]}">●</tspan><tspan fill="{c["text"]}">{escape(txt[1:])}</tspan>'
-            if kind == "out" and "active (running)" in txt:
-                a, b = txt.split("active (running)")
-                body = f'{escape(a)}<tspan fill="{c["ok"]}" font-weight="bold">active (running)</tspan>{escape(b)}'
-            if kind == "log":
-                ts, rest = txt[:5], txt[5:]
-                body = f'<tspan fill="{c["amber"]}">{ts}</tspan>{escape(rest)}'
             o.append(f'<text class="ln" style="animation-delay:{t:.2f}s" x="{X}" y="{y}" font-family="{FONT}" '
                      f'font-size="{FS}" fill="{fill}">{body}</text>')
             t += 0.12
@@ -158,14 +214,15 @@ def main():
     token = os.environ.get("GITHUB_TOKEN", "")
     if not token:
         sys.exit("GITHUB_TOKEN is not set")
-    weeks, last = fetch(login, token)
+    weeks = fetch(login, token)
+    today = dt.datetime.now(LOCAL).date()
     os.makedirs(out, exist_ok=True)
     for theme in THEMES:
         with open(os.path.join(out, f"terminal-{theme}.svg"), "w", encoding="utf-8") as f:
-            f.write(terminal(theme, last))
+            f.write(terminal(theme, today))
         with open(os.path.join(out, f"skyline-{theme}.svg"), "w", encoding="utf-8") as f:
             f.write(skyline(theme, weeks))
-    print(f"rendered: {len(weeks)} weeks, {sum(weeks)} contributions, last activity: {last or 'none public'}")
+    print(f"rendered: {len(weeks)} weeks, {sum(weeks)} contributions, terminal scene: weekday {today.weekday()}")
 
 
 if __name__ == "__main__":

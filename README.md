@@ -7,7 +7,7 @@ Most of what's here started late at night as a question. Some of it got finished
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NeoGeoOne/NeoGeoOne/output/terminal-dark.svg">
-  <img alt="Terminal: systemctl status neogeoone, active (running). Night log: 23:58 flarum, snapshot first, then the change; 03:20 skills, live data instead of memory; 04:17 chess, stockfish, offline, no tracking; 04:19 cost, own hardware vs. cloud, sourced; 04:30 status within baseline." src="https://raw.githubusercontent.com/NeoGeoOne/NeoGeoOne/output/terminal-light.svg" width="100%">
+  <img alt="Terminal: a different Blade Runner scene each weekday, from a Voight-Kampff test to an origami unicorn on the desk." src="https://raw.githubusercontent.com/NeoGeoOne/NeoGeoOne/output/terminal-light.svg" width="100%">
 </picture>
 
 <picture>
