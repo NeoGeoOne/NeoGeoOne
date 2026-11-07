@@ -7,7 +7,7 @@ Most of what's here started late at night as a question. Some of it got finished
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NeoGeoOne/NeoGeoOne/output/terminal-dark.svg">
-  <img alt="Terminal: systemctl status neogeoone, active (running). Night log: 02:14 question, what does it really cost; 02:51 measured, not guessed; 03:30 offline, still works; 04:02 backup restored, not just taken; 04:06 status within baseline." src="https://raw.githubusercontent.com/NeoGeoOne/NeoGeoOne/output/terminal-light.svg" width="100%">
+  <img alt="Terminal: systemctl status neogeoone, active (running). Night log: 23:58 flarum, snapshot first, then the change; 03:20 skills, live data instead of memory; 04:17 chess, stockfish, offline, no tracking; 04:19 cost, own hardware vs. cloud, sourced; 04:30 status within baseline." src="https://raw.githubusercontent.com/NeoGeoOne/NeoGeoOne/output/terminal-light.svg" width="100%">
 </picture>
 
 <picture>
@@ -27,7 +27,7 @@ Most of what's here started late at night as a question. Some of it got finished
 </details>
 
 <sub>toolbox</sub><br>
-<kbd>Debian</kbd> <kbd>Bash</kbd> <kbd>tmux</kbd> <kbd>Git</kbd> <kbd>Docker</kbd> <kbd>Portainer</kbd> <kbd>Postgres</kbd> <kbd>Qdrant</kbd> <kbd>n8n</kbd> <kbd>Ollama</kbd> <kbd>WireGuard</kbd> <kbd>SSH</kbd> <kbd>rsync</kbd> <kbd>Python</kbd> <kbd>uv</kbd> <kbd>Node.js</kbd> <kbd>Playwright</kbd>
+<kbd>Debian</kbd> <kbd>Bash</kbd> <kbd>tmux</kbd> <kbd>Git</kbd> <kbd>Docker</kbd> <kbd>Portainer</kbd> <kbd>Qdrant</kbd> <kbd>n8n</kbd> <kbd>Ollama</kbd> <kbd>WireGuard</kbd> <kbd>SSH</kbd> <kbd>rsync</kbd> <kbd>Python</kbd> <kbd>uv</kbd> <kbd>Node.js</kbd> <kbd>TypeScript</kbd> <kbd>Playwright</kbd> <kbd>Claude Code</kbd> <kbd>OpenCode</kbd> <kbd>MCP</kbd>
 
 <details>
 <summary>🏙️ <b>a building from the night city</b> <sub>drag to rotate</sub></summary>
