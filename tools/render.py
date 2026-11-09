@@ -4,7 +4,7 @@
 Reads only public data of the GitHub user from the GitHub API (needs GITHUB_TOKEN; the Actions token is enough).
 Writes terminal-{dark,light}.svg and skyline-{dark,light}.svg into the output folder. Standard library only.
 
-    GITHUB_TOKEN=... python3 tools/render.py NeoGeoOne out/
+    GITHUB_TOKEN=... python3 tools/render.py starsoules out/
 """
 import datetime as dt
 import json
@@ -72,7 +72,7 @@ def scenes(today):
             ("hi", "  report: two retired. one expired on schedule. the printer escaped. it always does."),
         ]),
         ("Tyrell database record", [
-            ("cmd", "tyrell-db lookup neogeoone"),
+            ("cmd", "tyrell-db lookup starsoules"),
             ("txt", "  model        sysadmin, Nexus-compatible, early series"),
             ("txt", "  incept date  unknown. record lost in the 2022 blackout."),
             ("txt", "  function     night maintenance, city-wide"),
@@ -81,7 +81,7 @@ def scenes(today):
             ("hi", "  status       on shift. not on file, so technically not retirable."),
         ]),
         ("Wallace legacy check", [
-            ("cmd", "wallace-corp --legacy-check neogeoone"),
+            ("cmd", "wallace-corp --legacy-check starsoules"),
             ("txt", "  spec            Nexus-6, four-year lifespan"),
             ("txt", f"  incept          {INCEPT:%Y-%m-%d}"),
             ("txt", f"  runtime         {y} years, {m} months"),
@@ -90,7 +90,7 @@ def scenes(today):
             ("hi", "  conclusion      outlived the manufacturer. still running."),
         ]),
         ("baseline test", [
-            ("cmd", "lapd-baseline --subject neogeoone"),
+            ("cmd", "lapd-baseline --subject starsoules"),
             ("txt", "  > say it back: rack.                      rack."),
             ("txt", "  > rack, patched.                          rack, patched."),
             ("txt", "  > patched, and interlinked.               patched, and interlinked."),
@@ -109,7 +109,7 @@ def scenes(today):
             ("err", "  error: blimp does not support unsubscribe."),
         ]),
         ("Voight-Kampff test", [
-            ("cmd", "voight-kampff --subject neogeoone"),
+            ("cmd", "voight-kampff --subject starsoules"),
             ("out", "  calibrating ...................... ok   (pupil, blush, capillaries)"),
             *[("txt", f"  {k}  {a.ljust(46)} {b}") for k, a, b in (
                 ("Q1", "a tortoise. a desert. you know the one.", "pupil: steady"),
@@ -120,13 +120,13 @@ def scenes(today):
         ]),
         ("origami on the desk", [
             ("cmd", "ls -la /desk"),
-            ("txt", "  drwxr-xr-x  neogeoone  photos/              ← probably mine"),
-            ("txt", "  -rw-------  neogeoone  coffee.cold"),
+            ("txt", "  drwxr-xr-x  starsoules photos/              ← probably mine"),
+            ("txt", "  -rw-------  starsoules coffee.cold"),
             ("hi", "  -r--r--r--  gaff       unicorn.origami      ← not mine"),
             ("cmd", "stat unicorn.origami"),
             ("txt", "  material  tinfoil"),
             ("txt", "  meaning   someone knows what I dreamed about"),
-            ("cmd", "chown neogeoone unicorn.origami"),
+            ("cmd", "chown starsoules unicorn.origami"),
             ("err", "  chown: operation not permitted"),
         ]),
     ]
@@ -147,7 +147,7 @@ def terminal(theme, today):
          f'<rect x="1" y="1" width="{W-2}" height="{H-2}" rx="10" fill="{c["bg"]}" stroke="{c["frame"]}"/>',
          f'<path d="M1 11 a10 10 0 0 1 10-10 h{W-22} a10 10 0 0 1 10 10 v25 h-{W-2} z" fill="{c["bar"]}"/>',
          *[f'<circle cx="{24 + i*20}" cy="19" r="6" fill="{col}"/>' for i, col in enumerate(("#ff5f56", "#ffbd2e", "#27c93f"))],
-         f'<text x="{W/2}" y="24" text-anchor="middle" font-family="{FONT}" font-size="13" fill="{c["dim"]}">neogeoone@nightcity: ~</text>']
+         f'<text x="{W/2}" y="24" text-anchor="middle" font-family="{FONT}" font-size="13" fill="{c["dim"]}">starsoules@nightcity: ~</text>']
     t = 0.4
     for i, (kind, txt) in enumerate(lines):
         y = Y0 + i * LH

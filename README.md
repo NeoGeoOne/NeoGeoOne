@@ -1,18 +1,18 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
-  <img alt="NeoGeoOne, rain over a city at night" src="assets/banner-light.svg" width="100%">
+  <img alt="starsoules, rain over a city at night" src="assets/banner-light.svg" width="100%">
 </picture>
 
 Most of what's here started late at night as a question. Some of it got finished. The rest is still on the bench.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NeoGeoOne/NeoGeoOne/output/terminal-dark.svg">
-  <img alt="Terminal: a different Blade Runner scene each weekday, from a Voight-Kampff test to an origami unicorn on the desk." src="https://raw.githubusercontent.com/NeoGeoOne/NeoGeoOne/output/terminal-light.svg" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/starsoules/starsoules/output/terminal-dark.svg">
+  <img alt="Terminal: a different Blade Runner scene each weekday, from a Voight-Kampff test to an origami unicorn on the desk." src="https://raw.githubusercontent.com/starsoules/starsoules/output/terminal-light.svg" width="100%">
 </picture>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NeoGeoOne/NeoGeoOne/output/skyline-dark.svg">
-  <img alt="A night skyline, one building per week of the last year; lit windows are public contributions." src="https://raw.githubusercontent.com/NeoGeoOne/NeoGeoOne/output/skyline-light.svg" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/starsoules/starsoules/output/skyline-dark.svg">
+  <img alt="A night skyline, one building per week of the last year; lit windows are public contributions." src="https://raw.githubusercontent.com/starsoules/starsoules/output/skyline-light.svg" width="100%">
 </picture>
 
 <sub>toolbox</sub><br>
