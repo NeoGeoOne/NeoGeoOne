@@ -1,6 +1,6 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
-  <img alt="starsoules, rain over a city at night" src="assets/banner-light.svg" width="100%">
+  <img alt="Rain over a city at night" src="assets/banner-light.svg" width="100%">
 </picture>
 
 Most of what's here started late at night as a question. Some of it got finished. The rest is still on the bench.

@@ -1,11 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" role="img" aria-label="starsoules">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" role="img" aria-label="Rain over a city at night">
 <defs>
 <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04060b"/><stop offset="0.65" stop-color="#0b1020"/><stop offset="1" stop-color="#0d1117"/></linearGradient>
 <radialGradient id="haze" cx="0.72" cy="1" r="0.75"><stop offset="0" stop-color="#7a2b8f" stop-opacity="0.45"/><stop offset="1" stop-color="#7a2b8f" stop-opacity="0"/></radialGradient>
 <linearGradient id="beam" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#9ad7ff" stop-opacity="0.22"/><stop offset="1" stop-color="#9ad7ff" stop-opacity="0"/></linearGradient>
 <linearGradient id="fog" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1117" stop-opacity="0"/><stop offset="1" stop-color="#0d1117" stop-opacity="0.85"/></linearGradient>
 <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-<clipPath id="type"><rect class="typer" x="56" y="70" height="90" width="0"/></clipPath>
 </defs>
 <style>
 .rf{animation:fall 2.6s linear infinite}.rm{animation:fall 1.7s linear infinite}.rn{animation:fall 1.05s linear infinite}
@@ -20,10 +19,7 @@
 .car{animation:fly 26s linear infinite}
 @keyframes fly{0%{transform:translate(-80px,64px)}100%{transform:translate(1290px,26px)}}
 .blink{animation:blink 1.2s steps(1) infinite}@keyframes blink{50%{opacity:0}}
-.typer{animation:type 1.6s steps(10) 0.4s forwards}@keyframes type{to{width:364px}}
-.cursor{animation:blink 1.1s steps(1) infinite,move 1.6s steps(10) 0.4s forwards}
-@keyframes move{from{transform:translateX(-336px)}to{transform:translateX(0)}}
-@media (prefers-reduced-motion: reduce){*{animation:none!important}.typer{width:364px}.cursor{transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}
 </style>
 <rect width="1200" height="300" fill="url(#sky)"/>
 <rect width="1200" height="300" fill="url(#haze)"/>
@@ -388,6 +384,4 @@
 <line class="rn" x1="473" y1="-111" x2="467.3" y2="-85" stroke="#9fb1c6" stroke-width="1.3" opacity="0.55" style="animation-delay:-0.40s"/>
 <line class="rn" x1="1035" y1="-70" x2="1029.3" y2="-44" stroke="#9fb1c6" stroke-width="1.3" opacity="0.55" style="animation-delay:-0.14s"/>
 <rect y="230" width="1200" height="70" fill="url(#fog)"/>
-<g filter="url(#glow)"><text x="60" y="140" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="56" fill="#e6edf3" clip-path="url(#type)">starsoules</text></g>
-<rect class="cursor" x="400" y="96" width="16" height="54" fill="#39c5cf" filter="url(#glow)"/>
 </svg>
