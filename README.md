@@ -9,7 +9,7 @@ I'm not a developer by training. AI lets me turn a thought or a wish into someth
 
 ◉ Currently somewhere between real life and the future arriving early.<br>
 ◇ Learning to ask better questions, of people and machines.<br>
-⌁ Questions, ideas, or just curious? Feel free to reach out.
+⌁ Got an idea or just curious? Feel free to reach out.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/starsoules/starsoules/output/terminal-dark.svg">
