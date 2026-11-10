@@ -287,8 +287,6 @@ def card(theme):
          sign(c),
          f'<rect y="{H - BASE}" width="{W}" height="{BASE}" fill="{c["ground"]}"/>',
          f'<rect y="{H - BASE}" width="{W}" height="{BASE}" fill="url(#fog)"/>',
-         f'<text x="{EDGES[-1][0]}" y="{H - 16}" font-family="{FONT}" font-size="14" fill="{c["label"]}">'
-         f'<tspan class="neon" fill="{c["ice"]}">▮</tspan> flickering sign = end of life</text>',
          rain(rng, c),
          "</svg>"]
     return "\n".join(o) + "\n"

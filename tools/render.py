@@ -174,7 +174,7 @@ def terminal(theme, today):
 def skyline(theme, weeks):
     c = THEMES[theme]
     rng = random.Random(52)
-    W, H, base = 1200, 190, 160
+    W, H, base = 1200, 172, 160
     n = len(weeks) or 1
     step = (W - 40) / n
     bw = step * 0.78
@@ -203,8 +203,6 @@ def skyline(theme, weeks):
                 else:
                     o.append(f'<rect x="{wx:.1f}" y="{wy:.1f}" width="3" height="4" fill="{c["unlit"]}"/>')
     o.append(f'<rect x="20" y="{base}" width="{W-40}" height="1" fill="{c["frame"]}"/>')
-    o.append(f'<text x="20" y="{base + 20}" font-family="{FONT}" font-size="12" fill="{c["dim"]}">'
-             f'last 52 weeks · one building per week · lights = public contributions · redrawn daily</text>')
     o.append("</svg>")
     return "\n".join(o) + "\n"
 
