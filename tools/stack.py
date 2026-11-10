@@ -34,7 +34,7 @@ TIERS = [
         ("network", ["WireGuard", "Tailscale", "SSH", "Little Snitch"]),
         ("storage", ["LVM", "Samba", "rsync"]),
         ("shell", ["Bash", "PowerShell", "cmd", "tmux"]),
-        ("system", ["Debian", "Ubuntu", "Red Hat", "CentOS", "Windows", "Windows Server"]),
+        ("system", ["Debian", "Ubuntu", "Red Hat", "CentOS", "Windows Server"]),
     ]),
 ]
 # A flickering sign is a dying tube: end of life, no more vendor support (CentOS Linux 7: June 2024).
