@@ -37,7 +37,8 @@ TIERS = [
         ("system", ["Debian", "Ubuntu", "Red Hat", "CentOS", "Windows", "Windows Server"]),
     ]),
 ]
-FLICKER = {"A2A"}  # placeholder until the flicker gets its meaning
+# A flickering sign is a dying tube: end of life, no more vendor support (CentOS Linux 7: June 2024).
+FLICKER = {"CentOS"}
 
 W = 1200
 FONT = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
@@ -92,7 +93,7 @@ def aria():
     for tier, _, layers in TIERS:
         parts.append(f"{tier} tier: " + "; ".join(f"{n}: {', '.join(t)}" for n, t in layers))
     return ("Toolbox as a stepped tower at night, one floor per layer, each floor building on the ones below. "
-            + ". ".join(parts) + ".")
+            + ". ".join(parts) + ". A flickering sign marks end of life: " + ", ".join(sorted(FLICKER)) + ".")
 
 
 def city(rng, c):
@@ -268,7 +269,7 @@ def card(theme):
          f"@keyframes fall{{from{{transform:translateY(-{H}px)}}to{{transform:translateY({H}px)}}}}",
          ".win{animation-name:win;animation-iteration-count:infinite;animation-timing-function:steps(1)}",
          "@keyframes win{0%{opacity:0.55}46%{opacity:0.06}71%{opacity:0.55}}",
-         ".neon{animation:flicker 7s infinite}.neon2{animation:flicker 11s 3s infinite}",
+         ".neon{animation:flicker 5s infinite}.neon2{animation:flicker 11s 3s infinite}",
          "@keyframes flicker{0%,18%,22%,62%,64%,100%{opacity:1}20%,63%{opacity:0.25}21%{opacity:0.7}}",
          ".sweep{transform-box:view-box;animation:sweep 14s ease-in-out infinite alternate}",
          ".sweep2{transform-box:view-box;animation:sweep 19s ease-in-out infinite alternate-reverse}",
@@ -286,6 +287,8 @@ def card(theme):
          sign(c),
          f'<rect y="{H - BASE}" width="{W}" height="{BASE}" fill="{c["ground"]}"/>',
          f'<rect y="{H - BASE}" width="{W}" height="{BASE}" fill="url(#fog)"/>',
+         f'<text x="{EDGES[-1][0]}" y="{H - 16}" font-family="{FONT}" font-size="14" fill="{c["label"]}">'
+         f'<tspan class="neon" fill="{c["ice"]}">▮</tspan> flickering sign = end of life</text>',
          rain(rng, c),
          "</svg>"]
     return "\n".join(o) + "\n"
