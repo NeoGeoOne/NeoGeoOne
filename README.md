@@ -9,7 +9,7 @@ I'm not a developer by training. AI lets me turn a thought or a wish into someth
 
 ◉ Currently teaching my home lab to think without the cloud.<br>
 ◇ Learning to ask better questions, of people and machines.<br>
-⌁ Reach me: [starsoul.es](https://starsoul.es) · [YouTube](https://www.youtube.com/@starsoules)
+⌁ Questions, ideas, or just curious? Feel free to reach out.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/starsoules/starsoules/output/terminal-dark.svg">
@@ -25,23 +25,6 @@ I'm not a developer by training. AI lets me turn a thought or a wish into someth
   <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">
   <img alt="Toolbox as a tower at night, one floor per layer from top to bottom. agents: Claude Code, OpenCode, Hermes, OpenClaw, Gemini CLI; interfaces: MCP, ACP, A2A, Agent Skills; automation: n8n, Hermes Kanban, Playwright; inference: Ollama, llama.cpp, vLLM, LM Studio; training: Unsloth, PyTorch, Hugging Face; media: ComfyUI, Whisper, text-to-speech, FFmpeg; databases: Qdrant, PostgreSQL, MariaDB, SQLite; code: Python, uv, Node.js, TypeScript, PHP, Git; shell: Bash, PowerShell, cmd, tmux; runtime: Docker, Docker Compose, Portainer, QEMU, VirtualBox; web: nginx, Apache, PHP-FPM; network: WireGuard, Tailscale, SSH, Little Snitch; storage: LVM, Samba, rsync; system: Debian, Ubuntu, Red Hat, CentOS, Windows, Windows Server." src="assets/stack-light.svg" width="100%">
 </picture>
-
-```
-┌─ 14 agents ──────── Claude Code · OpenCode · Hermes · OpenClaw · Gemini CLI
-├─ 13 interfaces ──── MCP · ACP · A2A · Agent Skills
-├─ 12 automation ──── n8n · Hermes Kanban · Playwright
-├─ 11 inference ───── Ollama · llama.cpp · vLLM · LM Studio
-├─ 10 training ────── Unsloth · PyTorch · Hugging Face
-├─ 09 media ───────── ComfyUI · Whisper · text-to-speech · FFmpeg
-├─ 08 databases ───── Qdrant · PostgreSQL · MariaDB · SQLite
-├─ 07 code ────────── Python · uv · Node.js · TypeScript · PHP · Git
-├─ 06 shell ───────── Bash · PowerShell · cmd · tmux
-├─ 05 runtime ─────── Docker · Docker Compose · Portainer · QEMU · VirtualBox
-├─ 04 web ─────────── nginx · Apache · PHP-FPM
-├─ 03 network ─────── WireGuard · Tailscale · SSH · Little Snitch
-├─ 02 storage ─────── LVM · Samba · rsync
-└─ 01 system ──────── Debian · Ubuntu · Red Hat · CentOS · Windows · Windows Server
-```
 
 <details>
 <summary>🎈 <b>Welcome to the world of tomorrow!</b> <sub>drag to rotate</sub></summary>
