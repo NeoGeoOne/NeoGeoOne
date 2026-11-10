@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Render the toolbox card: a tower at night, one floor per layer, every tool a neon sign.
+"""Render the toolbox card: a stepped tower at night, one floor per layer, every tool a neon sign.
+
+The stack reads bottom-up like a dependency chain: each floor builds on the floors below it.
+Four tiers, each with one colour, step back as the tower rises (broad foundation, specialised top).
 
 Writes assets/stack-dark.svg and assets/stack-light.svg. Standard library only.
 
@@ -9,24 +12,32 @@ import os
 import random
 import sys
 
-# Top floor first: from the agents down to the machine.
-LAYERS = [
-    ("agents", "pink", ["Claude Code", "OpenCode", "Hermes", "OpenClaw", "Gemini CLI"]),
-    ("interfaces", "cyan", ["MCP", "ACP", "A2A", "Agent Skills"]),
-    ("automation", "cyan", ["n8n", "Hermes Kanban", "Playwright"]),
-    ("inference", "cyan", ["Ollama", "llama.cpp", "vLLM", "LM Studio"]),
-    ("training", "cyan", ["Unsloth", "PyTorch", "Hugging Face"]),
-    ("media", "cyan", ["ComfyUI", "Whisper", "text-to-speech", "FFmpeg"]),
-    ("databases", "amber", ["Qdrant", "PostgreSQL", "MariaDB", "SQLite"]),
-    ("code", "amber", ["Python", "uv", "Node.js", "TypeScript", "PHP", "Git"]),
-    ("shell", "amber", ["Bash", "PowerShell", "cmd", "tmux"]),
-    ("runtime", "red", ["Docker", "Docker Compose", "Portainer", "QEMU", "VirtualBox"]),
-    ("web", "red", ["nginx", "Apache", "PHP-FPM"]),
-    ("network", "red", ["WireGuard", "Tailscale", "SSH", "Little Snitch"]),
-    ("storage", "red", ["LVM", "Samba", "rsync"]),
-    ("system", "red", ["Debian", "Ubuntu", "Red Hat", "CentOS", "Windows", "Windows Server"]),
+# Top tier first. Within a tier, top floor first.
+TIERS = [
+    ("intelligence", "pink", [
+        ("agents", ["Claude Code", "OpenCode", "Hermes", "OpenClaw", "Gemini CLI"]),
+        ("interfaces", ["MCP", "ACP", "A2A", "Agent Skills"]),
+        ("automation", ["n8n", "Hermes Kanban", "Playwright"]),
+    ]),
+    ("models", "cyan", [
+        ("media", ["ComfyUI", "Whisper", "text-to-speech", "FFmpeg"]),
+        ("inference", ["Ollama", "llama.cpp", "vLLM", "LM Studio"]),
+        ("training", ["Unsloth", "PyTorch", "Hugging Face"]),
+    ]),
+    ("services", "amber", [
+        ("code", ["Python", "uv", "Node.js", "TypeScript", "PHP", "Git"]),
+        ("web", ["nginx", "Apache", "PHP-FPM"]),
+        ("databases", ["Qdrant", "PostgreSQL", "MariaDB", "SQLite"]),
+    ]),
+    ("infrastructure", "ice", [
+        ("runtime", ["Docker", "Docker Compose", "Portainer", "QEMU", "VirtualBox"]),
+        ("network", ["WireGuard", "Tailscale", "SSH", "Little Snitch"]),
+        ("storage", ["LVM", "Samba", "rsync"]),
+        ("shell", ["Bash", "PowerShell", "cmd", "tmux"]),
+        ("system", ["Debian", "Ubuntu", "Red Hat", "CentOS", "Windows", "Windows Server"]),
+    ]),
 ]
-FLICKER = {"A2A"}  # the newest protocol gets the unsteady sign
+FLICKER = {"A2A"}  # placeholder until the flicker gets its meaning
 
 W = 1200
 FONT = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
@@ -34,24 +45,26 @@ FS = 17                      # tool sign font size; the image shows at ~0.7x in 
 CW = FS * 0.6                # monospace advance; textLength pins it so every font fits its sign
 PAD, GAP, TAG_H = 11, 10, 25
 ROW_H = 34
-TOP = 112                    # roof and antenna above the first floor
+TOP = 112                    # roof and antenna above the top floor
 BASE = 46
-H = TOP + ROW_H * len(LAYERS) + BASE
-TX0, TX1 = 70, 1050          # tower facade
-LABEL_X, TOOLS_X = 92, 300   # floor label column, first sign
-SIGN_X = 1088                # vertical TOOLBOX sign
+FLOORS = sum(len(t[2]) for t in TIERS)
+H = TOP + ROW_H * FLOORS + BASE
+NUM_X, NAME_X, TOOLS_X = 112, 146, 300
+# Setbacks per tier, top to bottom: the tower widens towards the ground.
+EDGES = [(84, 940), (68, 985), (52, 1030), (36, 1075)]
+SIGN_X = 1128                # vertical TOOLBOX sign
 
 THEMES = {
     "dark": dict(sky=("#04060b", "#0d1220", "#1b1430", "#2a1636"), far="#121826", far2="#151c2b",
                  tower="#0f141f", edge="#2a3346", slab="#1e2638", win="#d4a72c", tagbg="#0b0f17",
-                 label="#8b949e", num="#6e5a2a", ground="#07090f", rain="#9ad7ff", rain_op=0.16,
+                 label="#8b949e", num="#6e7681", ground="#07090f", rain="#9ad7ff", rain_op=0.16,
                  beam="#9ad7ff", beam_op=0.10, light="#ff3b3b", glow=2.2, page="#0d1117",
-                 pink="#ff4fd8", cyan="#39c5cf", amber="#d4a72c", red="#e5534b"),
+                 pink="#ff4fd8", cyan="#39c5cf", amber="#d4a72c", ice="#a5c8ff"),
     "light": dict(sky=("#f6f8fa", "#eef1f5", "#f3e3dc", "#f0c4a6"), far="#c9d1db", far2="#b9c2cd",
                   tower="#d6dde6", edge="#7d8a99", slab="#b9c2cd", win="#bf8700", tagbg="#f6f8fa",
-                  label="#59636e", num="#9a8a66", ground="#b9c2cd", rain="#7d8a99", rain_op=0.22,
+                  label="#59636e", num="#8c959f", ground="#b9c2cd", rain="#7d8a99", rain_op=0.22,
                   beam="#ffffff", beam_op=0.0, light="#cf222e", glow=0.0, page="#ffffff",
-                  pink="#bf3989", cyan="#0a7a85", amber="#9a6700", red="#cf222e"),
+                  pink="#bf3989", cyan="#0a7a85", amber="#9a6700", ice="#0550ae"),
 }
 
 
@@ -59,9 +72,27 @@ def tag_w(name):
     return len(name) * CW + 2 * PAD
 
 
+def floors_list():
+    """Every floor as (tier index, layer name, tools, y top), top floor first."""
+    out, y = [], TOP
+    for ti, (_, _, layers) in enumerate(TIERS):
+        for name, tools in layers:
+            out.append((ti, name, tools, y))
+            y += ROW_H
+    return out
+
+
+def tier_span(ti):
+    rows = [f for f in floors_list() if f[0] == ti]
+    return rows[0][3], rows[-1][3] + ROW_H
+
+
 def aria():
-    rows = "; ".join(f"{name}: {', '.join(tools)}" for name, _, tools in LAYERS)
-    return f"Toolbox as a tower at night, one floor per layer from top to bottom. {rows}."
+    parts = []
+    for tier, _, layers in TIERS:
+        parts.append(f"{tier} tier: " + "; ".join(f"{n}: {', '.join(t)}" for n, t in layers))
+    return ("Toolbox as a stepped tower at night, one floor per layer, each floor building on the ones below. "
+            + ". ".join(parts) + ".")
 
 
 def city(rng, c):
@@ -95,55 +126,52 @@ def rain(rng, c):
     return f'<g stroke="{c["rain"]}" stroke-width="1" opacity="{c["rain_op"]}">{"".join(out)}</g>'
 
 
-def facade(rng, c):
-    """Tower body, unlit window grid, floor slabs and the stepped roof with its antenna."""
-    y0, y1 = TOP, H - BASE
-    o = [f'<rect x="{TX0 + 300}" y="58" width="360" height="{TOP - 58 + 2}" fill="{c["tower"]}" stroke="{c["edge"]}"/>',
-         f'<rect x="{TX0 + 200}" y="86" width="560" height="{TOP - 86 + 2}" fill="{c["tower"]}" stroke="{c["edge"]}"/>',
-         f'<line x1="{TX0 + 480}" y1="10" x2="{TX0 + 480}" y2="58" stroke="{c["edge"]}" stroke-width="2"/>',
-         f'<line x1="{TX0 + 468}" y1="30" x2="{TX0 + 492}" y2="30" stroke="{c["edge"]}" stroke-width="1.5"/>',
-         f'<circle class="blink" cx="{TX0 + 480}" cy="9" r="3.2" fill="{c["light"]}" filter="url(#glow)"/>',
-         f'<rect x="{TX0}" y="{y0}" width="{TX1 - TX0}" height="{y1 - y0}" fill="{c["tower"]}" stroke="{c["edge"]}"/>']
+def roof(rng, c):
+    """Stepped roof and antenna, centred on the top tier."""
+    l, r = EDGES[0]
+    mid = (l + r) // 2
+    o = [f'<rect x="{mid - 180}" y="58" width="360" height="{TOP - 58 + 2}" fill="{c["tower"]}" stroke="{c["edge"]}"/>',
+         f'<rect x="{mid - 280}" y="86" width="560" height="{TOP - 86 + 2}" fill="{c["tower"]}" stroke="{c["edge"]}"/>',
+         f'<line x1="{mid}" y1="10" x2="{mid}" y2="58" stroke="{c["edge"]}" stroke-width="2"/>',
+         f'<line x1="{mid - 12}" y1="30" x2="{mid + 12}" y2="30" stroke="{c["edge"]}" stroke-width="1.5"/>',
+         f'<circle class="blink" cx="{mid}" cy="9" r="3.2" fill="{c["light"]}" filter="url(#glow)"/>']
     for wy in range(66, TOP - 4, 12):
-        for wx in range(TX0 + 312, TX0 + 650, 14):
+        for wx in range(mid - 168, mid + 170, 14):
             if rng.random() < 0.12:
                 o.append(f'<rect x="{wx}" y="{wy}" width="5" height="6" fill="{c["win"]}" opacity="0.35"/>')
-    for i in range(len(LAYERS) + 1):
-        y = y0 + i * ROW_H
-        o.append(f'<line x1="{TX0}" y1="{y}" x2="{TX1}" y2="{y}" stroke="{c["slab"]}" stroke-width="1"/>')
-    o.append(f'<line x1="{TOOLS_X - 14}" y1="{y0}" x2="{TOOLS_X - 14}" y2="{y1}" stroke="{c["slab"]}" stroke-width="1"/>')
     return "".join(o)
 
 
-def floors(rng, c):
+def facade(c):
+    """One block per tier, each set back from the one below; floor slabs and the label column divider."""
     o = []
-    n = len(LAYERS)
-    for i, (name, tone, tools) in enumerate(LAYERS):
-        cy = TOP + i * ROW_H + ROW_H / 2
-        col = c[tone]
-        o.append(f'<text x="{LABEL_X}" y="{cy + 5:.1f}" font-family="{FONT}" font-size="14" fill="{c["num"]}">'
-                 f'{n - i:02d}</text>'
-                 f'<text x="{LABEL_X + 34}" y="{cy + 5.5:.1f}" font-family="{FONT}" font-size="16" fill="{c["label"]}">{name}</text>')
-        x = TOOLS_X
-        for tool in tools:
-            w = tag_w(tool)
-            cls = ' class="neon"' if tool in FLICKER else ""
-            o.append(f'<g{cls} filter="url(#glow)">'
-                     f'<rect x="{x:.1f}" y="{cy - TAG_H / 2:.1f}" width="{w:.1f}" height="{TAG_H}" rx="4" '
-                     f'fill="{c["tagbg"]}" fill-opacity="0.9" stroke="{col}" stroke-width="1.4"/>'
-                     f'<text x="{x + PAD:.1f}" y="{cy + FS * 0.34:.1f}" font-family="{FONT}" font-size="{FS}" fill="{col}" '
-                     f'textLength="{len(tool) * CW:.1f}" lengthAdjust="spacingAndGlyphs">{tool}</text></g>')
-            x += w + GAP
-        assert x - GAP <= TX1 - 16, f"floor '{name}' overflows the facade ({x - GAP:.0f} > {TX1 - 16})"
-        o.append(windows(rng, c, x + 14, cy))
+    for ti in range(len(TIERS) - 1, -1, -1):          # draw bottom-up so each ledge sits on the block below
+        (l, r), (y0, y1) = EDGES[ti], tier_span(ti)
+        o.append(f'<rect x="{l}" y="{y0}" width="{r - l}" height="{y1 - y0}" fill="{c["tower"]}" stroke="{c["edge"]}"/>')
+        for y in range(y0 + ROW_H, y1, ROW_H):
+            o.append(f'<line x1="{l}" y1="{y}" x2="{r}" y2="{y}" stroke="{c["slab"]}" stroke-width="1"/>')
+        o.append(f'<line x1="{TOOLS_X - 14}" y1="{y0}" x2="{TOOLS_X - 14}" y2="{y1}" stroke="{c["slab"]}" stroke-width="1"/>')
     return "".join(o)
 
 
-def windows(rng, c, x0, cy):
+def tier_bands(c):
+    """Coloured strip and tier name down the left edge of each tier: the legend lives on the building."""
+    o = []
+    for ti, (tier, tone, _) in enumerate(TIERS):
+        (l, _), (y0, y1) = EDGES[ti], tier_span(ti)
+        col = c[tone]
+        cx, cy = l + 13, (y0 + y1) / 2
+        o.append(f'<rect x="{l + 3}" y="{y0 + 4}" width="3" height="{y1 - y0 - 8}" rx="1.5" fill="{col}" filter="url(#glow)"/>'
+                 f'<text x="{cx}" y="{cy:.1f}" transform="rotate(-90 {cx} {cy:.1f})" text-anchor="middle" dominant-baseline="central" '
+                 f'font-family="{FONT}" font-size="11" letter-spacing="1" fill="{col}">{tier.upper()}</text>')
+    return "".join(o)
+
+
+def windows(rng, c, x0, x1, cy):
     """Window grid in the facade space a floor leaves free; a few are lit, some of those flicker."""
     o = []
     for wy in (cy - 10, cy + 2):
-        for wx in range(int(x0), TX1 - 14, 13):
+        for wx in range(int(x0), int(x1) - 14, 13):
             r = rng.random()
             if r < 0.16:
                 cls = ""
@@ -156,17 +184,50 @@ def windows(rng, c, x0, cy):
     return "".join(o)
 
 
+def floors(rng, c):
+    o = []
+    for i, (ti, name, tools, y) in enumerate(floors_list()):
+        cy = y + ROW_H / 2
+        col = c[TIERS[ti][1]]
+        right = EDGES[ti][1]
+        o.append(f'<text x="{NUM_X}" y="{cy + 5:.1f}" font-family="{FONT}" font-size="14" fill="{c["num"]}">'
+                 f'{FLOORS - i:02d}</text>'
+                 f'<text x="{NAME_X}" y="{cy + 5.5:.1f}" font-family="{FONT}" font-size="16" fill="{c["label"]}">{name}</text>')
+        x = TOOLS_X
+        for tool in tools:
+            w = tag_w(tool)
+            cls = ' class="neon"' if tool in FLICKER else ""
+            o.append(f'<g{cls} filter="url(#glow)">'
+                     f'<rect x="{x:.1f}" y="{cy - TAG_H / 2:.1f}" width="{w:.1f}" height="{TAG_H}" rx="4" '
+                     f'fill="{c["tagbg"]}" fill-opacity="0.9" stroke="{col}" stroke-width="1.4"/>'
+                     f'<text x="{x + PAD:.1f}" y="{cy + FS * 0.34:.1f}" font-family="{FONT}" font-size="{FS}" fill="{col}" '
+                     f'textLength="{len(tool) * CW:.1f}" lengthAdjust="spacingAndGlyphs">{tool}</text></g>')
+            x += w + GAP
+        assert x - GAP <= right - 16, f"floor '{name}' overflows its tier ({x - GAP:.0f} > {right - 16})"
+        o.append(windows(rng, c, x + 14, right, cy))
+    return "".join(o)
+
+
 def sign(c):
-    """Vertical neon sign on the tower's flank."""
+    """Vertical neon sign hung off the tower's flank on two arms."""
     letters = "TOOLBOX"
     top = TOP + 40
     step = 44
     hgt = step * len(letters) + 18
-    o = [f'<line x1="{TX1}" y1="{top + 20}" x2="{SIGN_X - 20}" y2="{top + 20}" stroke="{c["edge"]}" stroke-width="2"/>',
-         f'<line x1="{TX1}" y1="{top + hgt - 20}" x2="{SIGN_X - 20}" y2="{top + hgt - 20}" stroke="{c["edge"]}" stroke-width="2"/>',
-         f'<g class="neon2" filter="url(#glow)">'
-         f'<rect x="{SIGN_X - 20}" y="{top}" width="40" height="{hgt}" rx="5" fill="{c["tagbg"]}" fill-opacity="0.9" '
-         f'stroke="{c["pink"]}" stroke-width="1.6"/>']
+
+    def flank(y):
+        for ti in range(len(TIERS)):
+            y0, y1 = tier_span(ti)
+            if y0 <= y < y1:
+                return EDGES[ti][1]
+        return EDGES[-1][1]
+
+    o = []
+    for y in (top + 20, top + hgt - 20):
+        o.append(f'<line x1="{flank(y)}" y1="{y}" x2="{SIGN_X - 20}" y2="{y}" stroke="{c["edge"]}" stroke-width="2"/>')
+    o.append(f'<g class="neon2" filter="url(#glow)">'
+             f'<rect x="{SIGN_X - 20}" y="{top}" width="40" height="{hgt}" rx="5" fill="{c["tagbg"]}" fill-opacity="0.9" '
+             f'stroke="{c["pink"]}" stroke-width="1.6"/>')
     for k, ch in enumerate(letters):
         o.append(f'<text x="{SIGN_X}" y="{top + 38 + k * step}" text-anchor="middle" font-family="{FONT}" '
                  f'font-size="26" font-weight="700" fill="{c["pink"]}">{ch}</text>')
@@ -218,7 +279,9 @@ def card(theme):
          f'<rect width="{W}" height="{H}" fill="url(#sky)"/>',
          beams(c),
          city(rng, c),
-         facade(rng, c),
+         roof(rng, c),
+         facade(c),
+         tier_bands(c),
          floors(rng, c),
          sign(c),
          f'<rect y="{H - BASE}" width="{W}" height="{BASE}" fill="{c["ground"]}"/>',
