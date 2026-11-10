@@ -5,6 +5,12 @@
 
 Most of what's here started late at night as a question. Some of it got finished. The rest is still on the bench.
 
+I'm not a developer by training. AI lets me turn a thought or a wish into something that wasn't there before.
+
+◉ Currently teaching my home lab to think without the cloud.<br>
+◇ Learning to ask better questions, of people and machines.<br>
+⌁ Reach me: [starsoul.es](https://starsoul.es) · [YouTube](https://www.youtube.com/@starsoules)
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/starsoules/starsoules/output/terminal-dark.svg">
   <img alt="Terminal: a different Blade Runner scene each weekday, from a Voight-Kampff test to an origami unicorn on the desk." src="https://raw.githubusercontent.com/starsoules/starsoules/output/terminal-light.svg" width="100%">
@@ -15,8 +21,27 @@ Most of what's here started late at night as a question. Some of it got finished
   <img alt="A night skyline, one building per week of the last year; lit windows are public contributions." src="https://raw.githubusercontent.com/starsoules/starsoules/output/skyline-light.svg" width="100%">
 </picture>
 
-<sub>toolbox</sub><br>
-<kbd>Debian</kbd> <kbd>Bash</kbd> <kbd>tmux</kbd> <kbd>Git</kbd> <kbd>Docker</kbd> <kbd>Portainer</kbd> <kbd>Qdrant</kbd> <kbd>n8n</kbd> <kbd>Ollama</kbd> <kbd>llama.cpp</kbd> <kbd>vLLM</kbd> <kbd>LM Studio</kbd> <kbd>WireGuard</kbd> <kbd>SSH</kbd> <kbd>rsync</kbd> <kbd>Python</kbd> <kbd>uv</kbd> <kbd>Node.js</kbd> <kbd>TypeScript</kbd> <kbd>Playwright</kbd> <kbd>Claude Code</kbd> <kbd>OpenCode</kbd> <kbd>MCP</kbd> <kbd>Agent Skills</kbd>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/stack-dark.svg">
+  <img alt="Toolbox as a tower at night, one floor per layer from top to bottom. agents: Claude Code, OpenCode, Hermes, OpenClaw, Gemini CLI; interfaces: MCP, ACP, A2A, Agent Skills; automation: n8n, Hermes Kanban, Playwright; inference: Ollama, llama.cpp, vLLM, LM Studio; training: Unsloth, PyTorch, Hugging Face; media: ComfyUI, Whisper, text-to-speech, FFmpeg; databases: Qdrant, PostgreSQL, MariaDB, SQLite; code: Python, uv, Node.js, TypeScript, PHP, Git; shell: Bash, PowerShell, cmd, tmux; runtime: Docker, Docker Compose, Portainer, QEMU, VirtualBox; web: nginx, Apache, PHP-FPM; network: WireGuard, Tailscale, SSH, Little Snitch; storage: LVM, Samba, rsync; system: Debian, Ubuntu, Red Hat, CentOS, Windows, Windows Server." src="assets/stack-light.svg" width="100%">
+</picture>
+
+```
+┌─ 14 agents ──────── Claude Code · OpenCode · Hermes · OpenClaw · Gemini CLI
+├─ 13 interfaces ──── MCP · ACP · A2A · Agent Skills
+├─ 12 automation ──── n8n · Hermes Kanban · Playwright
+├─ 11 inference ───── Ollama · llama.cpp · vLLM · LM Studio
+├─ 10 training ────── Unsloth · PyTorch · Hugging Face
+├─ 09 media ───────── ComfyUI · Whisper · text-to-speech · FFmpeg
+├─ 08 databases ───── Qdrant · PostgreSQL · MariaDB · SQLite
+├─ 07 code ────────── Python · uv · Node.js · TypeScript · PHP · Git
+├─ 06 shell ───────── Bash · PowerShell · cmd · tmux
+├─ 05 runtime ─────── Docker · Docker Compose · Portainer · QEMU · VirtualBox
+├─ 04 web ─────────── nginx · Apache · PHP-FPM
+├─ 03 network ─────── WireGuard · Tailscale · SSH · Little Snitch
+├─ 02 storage ─────── LVM · Samba · rsync
+└─ 01 system ──────── Debian · Ubuntu · Red Hat · CentOS · Windows · Windows Server
+```
 
 <details>
 <summary>🎈 <b>Welcome to the world of tomorrow!</b> <sub>drag to rotate</sub></summary>
