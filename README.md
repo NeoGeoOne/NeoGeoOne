@@ -7,7 +7,7 @@ Most of what's here started late at night as a question. Some of it got finished
 
 I'm not a developer by training. AI lets me turn a thought or a wish into something that wasn't there before.
 
-◉ Currently teaching my home lab to think without the cloud.<br>
+◉ Currently somewhere between real life and the future arriving early.<br>
 ◇ Learning to ask better questions, of people and machines.<br>
 ⌁ Questions, ideas, or just curious? Feel free to reach out.
 
